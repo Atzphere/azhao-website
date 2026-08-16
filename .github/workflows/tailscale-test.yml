@@ -1,0 +1,21 @@
+name: Test Tailscale deployment access
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-tailscale:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v4
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+          ping: 192.168.1.71
+
+      - name: Test SSH port
+        run: |
+          nc -vz 192.168.1.71 22
