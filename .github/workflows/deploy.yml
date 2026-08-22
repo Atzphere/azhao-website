@@ -21,12 +21,12 @@ jobs:
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
           ping: 192.168.1.71
+          args: --accept-dns=false
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          package-manager-cache: false
 
       - name: Install dependencies
         run: npm ci
